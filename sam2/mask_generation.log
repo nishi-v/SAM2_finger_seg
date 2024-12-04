@@ -1,0 +1,44 @@
+2024-11-27 06:14:21,880 - INFO - Loaded checkpoint sucessfully
+2024-11-27 06:14:21,998 - INFO - SAM2 model loaded successfully
+2024-11-27 06:14:21,998 - INFO - Processing image: /teamspace/studios/this_studio/sam2_finger_seg/sam2/test_data/images/temp_image_e7919738-9a63-4763-a013-c0a662d42407.jpg
+2024-11-27 06:14:22,047 - INFO - Computing image embeddings for the provided image...
+2024-11-27 06:14:29,553 - INFO - Image embeddings computed.
+2024-11-27 06:14:29,788 - INFO - Prediction time: 0.22 seconds
+2024-11-27 06:14:29,788 - INFO - Processing image: /teamspace/studios/this_studio/sam2_finger_seg/sam2/test_data/images/temp_image_0202fc78-eb3b-4d47-b49c-2b6fcf38f04f.jpg
+2024-11-27 06:14:29,808 - INFO - Computing image embeddings for the provided image...
+2024-11-27 06:14:37,464 - INFO - Image embeddings computed.
+2024-11-27 06:14:37,670 - INFO - Prediction time: 0.18 seconds
+2024-11-27 06:14:37,671 - INFO - Processing image: /teamspace/studios/this_studio/sam2_finger_seg/sam2/test_data/images/temp_image_2d77cdd3-c6fb-443b-803a-df800d61c3f9.jpg
+2024-11-27 06:14:37,685 - INFO - Computing image embeddings for the provided image...
+2024-11-27 06:14:45,105 - INFO - Image embeddings computed.
+2024-11-27 06:14:45,318 - INFO - Prediction time: 0.19 seconds
+2024-11-27 06:14:45,318 - INFO - Processing image: /teamspace/studios/this_studio/sam2_finger_seg/sam2/test_data/images/temp_image_41fd9936-a888-4eac-86f6-8a30a90cc2f4.jpg
+2024-11-27 06:14:45,329 - INFO - Computing image embeddings for the provided image...
+2024-11-27 06:14:53,055 - INFO - Image embeddings computed.
+2024-11-27 06:14:53,294 - INFO - Prediction time: 0.22 seconds
+2024-11-27 06:14:53,294 - INFO - Processing image: /teamspace/studios/this_studio/sam2_finger_seg/sam2/test_data/images/temp_image_01bde5c2-ba7c-4770-bc70-36970f60e2da.jpg
+2024-11-27 06:14:53,302 - INFO - Computing image embeddings for the provided image...
+2024-11-27 06:15:00,523 - INFO - Image embeddings computed.
+2024-11-27 06:15:00,733 - INFO - Prediction time: 0.19 seconds
+2024-11-27 06:15:00,733 - INFO - Processing image: /teamspace/studios/this_studio/sam2_finger_seg/sam2/test_data/images/temp_image_869910a7-b332-475f-a656-0dafa841c1b1.jpg
+2024-11-27 06:15:00,742 - INFO - Computing image embeddings for the provided image...
+2024-11-27 06:15:08,367 - INFO - Image embeddings computed.
+2024-11-27 06:15:08,601 - INFO - Prediction time: 0.20 seconds
+2024-11-27 06:15:08,601 - INFO - Processing image: /teamspace/studios/this_studio/sam2_finger_seg/sam2/test_data/images/temp_image_a9a95d00-6496-4387-8e1a-c1ce2827ce76.jpg
+2024-11-27 06:15:08,614 - INFO - Computing image embeddings for the provided image...
+2024-11-27 06:15:18,216 - INFO - Image embeddings computed.
+2024-11-27 06:15:18,496 - INFO - Prediction time: 0.24 seconds
+2024-11-27 06:15:18,496 - INFO - Processing image: /teamspace/studios/this_studio/sam2_finger_seg/sam2/test_data/images/temp_image_5e689322-9edf-4e4e-9106-99edf97c52f9.jpg
+2024-11-27 06:15:18,519 - INFO - Computing image embeddings for the provided image...
+2024-11-27 06:15:27,228 - INFO - Image embeddings computed.
+2024-11-27 06:15:27,441 - INFO - Prediction time: 0.18 seconds
+2024-11-27 06:15:27,442 - INFO - Processing image: /teamspace/studios/this_studio/sam2_finger_seg/sam2/test_data/images/temp_image_6b5659c1-7c48-4db1-8899-ec62f1b612eb.jpg
+2024-11-27 06:15:27,450 - INFO - Computing image embeddings for the provided image...
+2024-11-27 06:15:35,032 - INFO - Image embeddings computed.
+2024-11-27 06:15:35,222 - INFO - Prediction time: 0.17 seconds
+2024-11-27 06:15:35,222 - INFO - Processing image: /teamspace/studios/this_studio/sam2_finger_seg/sam2/test_data/images/temp_image_9a9aa32f-06d5-4e4f-9595-4babfa5b9feb.jpg
+2024-11-27 06:15:35,234 - INFO - Computing image embeddings for the provided image...
+2024-11-27 06:15:43,315 - INFO - Image embeddings computed.
+2024-11-27 06:15:43,685 - INFO - Prediction time: 0.34 seconds
+2024-11-27 06:15:43,686 - INFO - Processing image: /teamspace/studios/this_studio/sam2_finger_seg/sam2/test_data/images/temp_image_c94fe46a-db29-4f78-8acb-14b28392b34d.jpg
+2024-11-27 06:15:43,737 - INFO - Computing image embeddings for the provided image...
