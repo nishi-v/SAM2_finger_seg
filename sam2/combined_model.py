@@ -13,12 +13,13 @@ from typing import List, Tuple, Dict
 
 from sam2.build_sam import build_sam2
 from sam2.sam2_image_predictor import SAM2ImagePredictor
-import torch
+import torch #type:ignore
 import logging
 import time
 from PIL import Image
 import matplotlib.pyplot as plt
 import streamlit as st
+from sam2.modeling.backbones.hieradet import Hiera
 
 st.title('Ring Virtual Try On New')
 
@@ -514,7 +515,7 @@ def generate_masks_for_image(image_path: Path, predictor: SAM2ImagePredictor, bb
 def process_img(img_path: Path):
     prediction_times = []
     try:
-        img_name = img_path.stem
+        # img_name = img_path.stem
         img = cv2.imread(str(img_path))
         img_new = img.copy()
         img_copy = img.copy()
@@ -709,29 +710,29 @@ def process_img(img_path: Path):
         alpha = 0.5  # Transparency level
         masked_image = cv2.addWeighted(img_copy, 1 - alpha, smoothed_mask.astype(np.uint8), alpha, 0)
 
-        box_point_img_path = bbox_dir/f'bbox_pts_{img_name}.jpg'
-        cv2.imwrite(str(box_point_img_path), img_new)
-        logging.info(f"Saved image with points and bboxes: {box_point_img_path}")
+        # box_point_img_path = bbox_dir/f'bbox_pts_{img_name}.jpg'
+        # cv2.imwrite(str(box_point_img_path), img_new)
+        # logging.info(f"Saved image with points and bboxes: {box_point_img_path}")
 
-        # Save the final image with all finger masks
-        masked_image_path = mask_dir/f"masked_{img_name}.jpg"
-        cv2.imwrite(str(masked_image_path), masked_image)
-        logging.info(f"Saved image with all finger masks: {masked_image_path}")
+        # # Save the final image with all finger masks
+        # masked_image_path = mask_dir/f"masked_{img_name}.jpg"
+        # cv2.imwrite(str(masked_image_path), masked_image)
+        # logging.info(f"Saved image with all finger masks: {masked_image_path}")
 
-        # Save the pure smoothed mask overlay for debugging
-        mask_path = segments_dir/f"mask_{img_name}.jpg"
-        cv2.imwrite(str(mask_path), smoothed_mask.astype(np.uint8))
-        logging.info(f"Saved smoothed mask overlay: {mask_path}")
+        # # Save the pure smoothed mask overlay for debugging
+        # mask_path = segments_dir/f"mask_{img_name}.jpg"
+        # cv2.imwrite(str(mask_path), smoothed_mask.astype(np.uint8))
+        # logging.info(f"Saved smoothed mask overlay: {mask_path}")
 
-        logging.info(f"Successfully processed {img_name}")
-        end8 = time.time() - start8
-        logging.info(f"Time for generating mask and bbox images and saving it: {end8}")
+        # logging.info(f"Successfully processed {img_name}")
+        # end8 = time.time() - start8
+        # logging.info(f"Time for generating mask and bbox images and saving it: {end8}")
             
 
         return finger_line_data_sam2, sam_results, binary_img_dict_sam2, sam_results, detection_result
 
     except Exception as e:
-        logging.error(f"Error processing {img_name}: {str(e)}")
+        logging.error(f"Error processing image: {str(e)}")
 
     if prediction_times:
         avg_time = sum(prediction_times) / len(prediction_times)
@@ -889,17 +890,20 @@ if __name__ == "__main__":
                 with open(dir / "temp_image.jpg", "wb") as f:
                     f.write(uploaded_image.getbuffer())
                 img_path = str(dir / 'temp_image.jpg')
-        start_st = time.time()
-        # Process all images
-        finger_data, _, _, results_new, detection_result = process_img(img_path) #type:ignore
-        end_st = time.time() - start_st
-        st.write(f"Time taken for API call: {end_st} seconds")
 
         # Proceed if either a camera or uploaded image is available
         if (option == "Capture Image" and camera_image) or (option == "Upload Image" and uploaded_image):
             try:
+                # st.write(img_path)
+                start_st = time.time()
+                # Process all images
+                finger_data, _, _, results_new, detection_result = process_img(img_path) 
+                # st.write(finger_data)
+                end_st = time.time() - start_st
+                st.write(f"Time taken for processing image: {end_st} seconds")
                 data = finger_data
-                st.session_state.fingers_detected = [finger for finger in ["Index", "Middle", "Ring", "Pinky"] if finger in data["results"]]
+                # st.write(f"data: {data}")
+                st.session_state.fingers_detected = [finger for finger in ["Index", "Middle", "Ring", "Pinky"] if finger in finger_data]
                 st.session_state.finger_to_coords = data  # Store all finger data
                 num_fingers = len(st.session_state.fingers_detected)
                 st.write(f"Detected {num_fingers} finger(s): {', '.join(st.session_state.fingers_detected)}")
@@ -908,11 +912,11 @@ if __name__ == "__main__":
 
             # Load and display the uploaded image
             try:
-                img_name = Path(img_path).stem
                 img = cv2.imread(img_path)
                 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
                 st.image(img, width=200)
-
+                # path_img = Path(img_path)
+                # img_name = path_img.stem
                 my_img = img.copy()
                 my_img1 = img.copy()
                 updated_img = img.copy()
@@ -1006,16 +1010,16 @@ if __name__ == "__main__":
                 alpha = 0.2  # Transparency level
                 masked_image = cv2.addWeighted(my_img, 1 - alpha, smoothed_mask.astype(np.uint8), alpha, 0)
 
-                check_finger_data_img_path = mask_dir/f'finger_data_{img_name}.jpg'
-                cv2.imwrite(str(check_finger_data_img_path), my_img)
-                logging.info(f"Saved Finger data image to: {check_finger_data_img_path}")
+                # check_finger_data_img_path = mask_dir/f'finger_data_{img_path.name}g'
+                # cv2.imwrite(str(check_finger_data_img_path), my_img)
+                # logging.info(f"Saved Finger data image to: {check_finger_data_img_path}")
 
-                # Save the final image with all finger masks
-                masked_image_path_new = mask_dir/f"masked_finger_data_{img_name}.jpg"
-                cv2.imwrite(str(masked_image_path_new), masked_image)
-                logging.info(f"Saved image with all finger masks: {masked_image_path_new}")
+                # # Save the final image with all finger masks
+                # masked_image_path_new = mask_dir/f"masked_finger_data_{img_path.name}"
+                # cv2.imwrite(str(masked_image_path_new), masked_image)
+                # logging.info(f"Saved image with all finger masks: {masked_image_path_new}")
 
-                st.image(my_img, caption='Wrist with Coordinates and polygon', use_column_width=True)
+                st.image(my_img, caption='Wrist with Coordinates and polygon', use_container_width=True)
 
                 # Calculate finger length in pixels
                 f_length = np.sqrt((right_pixel[0] - left_pixel[0]) ** 2 + (right_pixel[1] - left_pixel[1]) ** 2)
@@ -1063,12 +1067,12 @@ if __name__ == "__main__":
                 # Combine the original image with the overlay
                 img_with_ring = Image.alpha_composite(Image.fromarray(my_img, "RGB").convert("RGBA"), overlay)
 
-                st.image(img_with_ring, caption='Ring Overlay with coordinates and polygon', use_column_width=True)
+                st.image(img_with_ring, caption='Ring Overlay with coordinates and polygon', use_container_width=True)
 
                 # Combine the original image with the overlay
                 my_img_with_ring = Image.alpha_composite(Image.fromarray(my_img1, "RGB").convert("RGBA"), overlay)
 
-                st.image(my_img_with_ring, caption='Ring Overlay', use_column_width=True)
+                st.image(my_img_with_ring, caption='Ring Overlay', use_container_width=True)
 
                 # Provide an option to change the finger
                 if len(st.session_state.fingers_detected) > 1:
@@ -1144,16 +1148,16 @@ if __name__ == "__main__":
                         alpha = 0.2  # Transparency level
                         masked_image = cv2.addWeighted(updated_img, 1 - alpha, smoothed_mask.astype(np.uint8), alpha, 0)
 
-                        check_finger_data_img_path = mask_dir/f'finger_data_new_{img_name}.jpg'
-                        cv2.imwrite(str(check_finger_data_img_path), my_img)
-                        logging.info(f"Saved Finger data image to: {check_finger_data_img_path}")
+                        # check_finger_data_img_path = mask_dir/f'finger_data_new_{img_path.name}'
+                        # cv2.imwrite(str(check_finger_data_img_path), my_img)
+                        # logging.info(f"Saved Finger data image to: {check_finger_data_img_path}")
 
-                        # Save the final image with all finger masks
-                        masked_image_path_new = mask_dir/f"masked_finger_data_new_{img_name}.jpg"
-                        cv2.imwrite(str(masked_image_path_new), masked_image)
-                        logging.info(f"Saved image with all finger masks: {masked_image_path_new}")
+                        # # Save the final image with all finger masks
+                        # masked_image_path_new = mask_dir/f"masked_finger_data_new_{img_path.name}"
+                        # cv2.imwrite(str(masked_image_path_new), masked_image)
+                        # logging.info(f"Saved image with all finger masks: {masked_image_path_new}")
 
-                        st.image(updated_img, caption='Wrist with Coordinates and polygon', use_column_width=True)
+                        st.image(updated_img, caption='Wrist with Coordinates and polygon', use_container_width=True)
 
                         # Calculate finger length in pixels
                         f_length = np.sqrt((right_pixel[0] - left_pixel[0]) ** 2 + (right_pixel[1] - left_pixel[1]) ** 2)
@@ -1201,9 +1205,9 @@ if __name__ == "__main__":
                         # Combine the original image with the overlay
                         img_with_ring = Image.alpha_composite(Image.fromarray(updated_img, "RGB").convert("RGBA"), overlay)
 
-                        st.image(img_with_ring, caption='Ring Overlay with coordinates and polygon', use_column_width=True)
+                        st.image(img_with_ring, caption='Ring Overlay with coordinates and polygon', use_container_width=True)
 
                         # Combine the original image with the overlay
                         my_img_with_ring = Image.alpha_composite(Image.fromarray(updated_img1, "RGB").convert("RGBA"), overlay)
 
-                        st.image(my_img_with_ring, caption='Ring Overlay', use_column_width=True)
+                        st.image(my_img_with_ring, caption='Ring Overlay', use_container_width=True)
