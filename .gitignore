@@ -660,6 +660,7 @@ FodyWeavers.xsd
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,linux,python,visualbasic,visualstudio
 
 # Custom rules (everything added below won't be overriden by 'Generate .gitignore File' if you use 'Update' option)
+.venv/
 py_scripts/
 sam2_onnx/
 src/
@@ -681,3 +682,5 @@ sam2.1_hiera_base_plus.pt
 sam2.1_hiera_large.pt
 sam2.1_hiera_small.pt
 sam2.1_hiera_tiny.pt
+sam2/sam2_new_model.py
+sam2/sam2_new.py
