@@ -897,7 +897,7 @@ if __name__ == "__main__":
                 # st.write(img_path)
                 start_st = time.time()
                 # Process all images
-                finger_data, _, _, results_new, detection_result = process_img(img_path) 
+                finger_data, _, _, results_new, detection_result = process_img(img_path) #type:ignore
                 # st.write(finger_data)
                 end_st = time.time() - start_st
                 st.write(f"Time taken for processing image: {end_st} seconds")
