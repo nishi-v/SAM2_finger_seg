@@ -672,3 +672,12 @@ correction.py
 finger_seg.ipynb
 bbox.py
 check.py
+best_20epochs.pt
+sam2_hiera_base_plus.pt
+sam2_hiera_large.pt
+sam2_hiera_small.pt
+sam2_hiera_tiny.pt
+sam2.1_hiera_base_plus.pt
+sam2.1_hiera_large.pt
+sam2.1_hiera_small.pt
+sam2.1_hiera_tiny.pt
