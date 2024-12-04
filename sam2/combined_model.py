@@ -889,13 +889,14 @@ if __name__ == "__main__":
                 with open(dir / "temp_image.jpg", "wb") as f:
                     f.write(uploaded_image.getbuffer())
                 img_path = str(dir / 'temp_image.jpg')
-
+        start_st = time.time()
         # Process all images
         finger_data, _, _, results_new, detection_result = process_img(img_path) #type:ignore
+        end_st = time.time() - start_st
+        st.write(f"Time taken for API call: {end_st} seconds")
 
         # Proceed if either a camera or uploaded image is available
         if (option == "Capture Image" and camera_image) or (option == "Upload Image" and uploaded_image):
-            start_st = time.time()
             try:
                 data = finger_data
                 st.session_state.fingers_detected = [finger for finger in ["Index", "Middle", "Ring", "Pinky"] if finger in data["results"]]
