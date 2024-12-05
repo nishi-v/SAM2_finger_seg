@@ -686,4 +686,4 @@ sam2/sam2_new_model.py
 sam2/sam2_new.py
 temp_image.jpg
 temp_image_cam.jpg
-finger_seg_sam2.py
+# finger_seg_sam2.py
